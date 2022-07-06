@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-//const { coolGray } = require("tailwindcss/colors")
+
 const defaultColors = require("tailwindcss/colors")
-//primary, secondary, tertiary, quaternary, quinary, senary, septenary, octonary, nonary, and denary
+
 const customColors = require("./src/constants/Colors")
 const plugin = require("tailwindcss/plugin")
 module.exports = {
@@ -72,6 +72,17 @@ module.exports = {
     "hover:text-teal-600",
     "hover:text-cyan-600",
     "hover:text-sky-600",
+
+    "bg-red-500",
+    "bg-blue-500",
+    "bg-lime-500",
+    "bg-green-500",
+    "bg-orange-500",
+    "bg-amber-500",
+    "bg-emerald-500",
+    "bg-teal-500",
+    "bg-cyan-500",
+    "bg-sky-500",
 
     "text-red-500",
     "text-blue-500",
