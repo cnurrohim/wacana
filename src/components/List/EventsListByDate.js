@@ -1,0 +1,109 @@
+import React from "react"
+import moment from "moment"
+import { selectEvent, showDetails } from "../../store/event"
+import { useDispatch } from "react-redux"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {
+  faClock as Clock,
+  faCalendarDays,
+} from "@fortawesome/free-regular-svg-icons"
+
+const UpcomingEventsList = ({ eventGroup, past, upcoming }) => {
+  const dispatch = useDispatch()
+  const title = past
+    ? "Outdated Event"
+    : upcoming
+    ? "Upcoming Event"
+    : "Ongoing Event"
+
+  const titleSize = past ? "text-xl" : upcoming ? "text-xl" : "text-2xl"
+
+  return (
+    <>
+      {eventGroup && eventGroup.length > 0 && (
+        <div className="w-full flex flex-col mb-12">
+          <h3 className={`${titleSize} font-bold mb-10 text-secondary`}>
+            {title}
+          </h3>
+          <div className="flex flex-col gap-y-2">
+            {eventGroup.map((events, date) => {
+              const textColor = events[0].colorMood.replace("bg", "text")
+              return (
+                <div className="flex flex-row   leading-none" key={date}>
+                  <div className="flex flex-col w-10  items-center flex-shrink-0">
+                    <span
+                      className={`block text-center font-semibold py-2 items-center  bg-secondary text-2xl w-full leading-none ${textColor}`}
+                    >
+                      {date}
+                    </span>
+                    <span className="block text-center  py-2 items-center bg-secondary-700 text-sm w-full leading-none text-primary-200">
+                      {moment(events[0].startingDate).format("ddd")}
+                    </span>
+                  </div>
+                  <div className="flex flex-col pl-3 flex-grow">
+                    {events.map((event, a) => {
+                      const borderColor = event.colorMood.replace(
+                        "bg",
+                        "border"
+                      )
+
+                      return (
+                        <div
+                          className={`flex flex-col mb-5 pl-3 border-l-4 ${borderColor}`}
+                          key={a}
+                        >
+                          <h2
+                            className="text-md font-semibold capitalize mb-3 text-secondary hover:text-secondary-700 hover:cursor-pointer  leading-tight"
+                            onClick={() => {
+                              dispatch(selectEvent(event._id))
+                              dispatch(showDetails(true))
+                            }}
+                          >
+                            {event.title}
+                          </h2>
+                          {event.endingDate !== event.startingDate && (
+                            <span className="text-secondary text-xs font-thin mb-2 flex flex-row leading-none">
+                              <FontAwesomeIcon
+                                icon={faCalendarDays}
+                                className="mr-3"
+                              />{" "}
+                              <p className="">
+                                {moment(event.startingDate).format("ddd")}{" "}
+                                {moment(event.startingDate).format("D")} -{" "}
+                                {moment(event.endingDate).format("ddd")}{" "}
+                                {moment(event.endingDate).format("D")}
+                              </p>
+                            </span>
+                          )}
+
+                          <span className="text-secondary text-xs font-thin leading-none mb-4">
+                            <FontAwesomeIcon icon={Clock} className="mr-2" />{" "}
+                            {event.startingTime} - {event.endingTime}
+                          </span>
+
+                          {event.image && (
+                            <img
+                              src={event.image}
+                              alt={event.title}
+                              className="mb-2"
+                            />
+                          )}
+
+                          <p className="text-sm text-secondary-700">
+                            {event.description}
+                          </p>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+    </>
+  )
+}
+
+export default UpcomingEventsList
