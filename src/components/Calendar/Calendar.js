@@ -17,11 +17,11 @@ const Calendar = ({
 }) => {
   return (
     <div
-      className={`w-[30%] ${padding} pl-10 ${border} grid grid-cols-7 
-      ${maxHeight} 
+      className={`w-full sm:w-full md:w-full lg:w-[40%] xl:w-[30%] ${padding} pl-10 ${border} grid grid-cols-7 
+      h-full sm:h-full md:h-full lg:h-[550px] xl:h-[550px]
       bg-secondary relative
       shadow-md
-      rounded-l-xl
+      rounded-none sm:rounded-none md:rounded-none lg:rounded-l-xl xl:rounded-l-xl
       `}
     >
       <div className="w-20 h-10 absolute top-0 right-0 flex flex-col">

@@ -10,7 +10,7 @@ const UpdateFailed = () => {
 
   const dispatch = useDispatch()
   return (
-    <div className="bg-pink-600 p-10 flex flex-col justify-center items-center h-full  rounded-r-xl">
+    <div className="bg-pink-600 p-10 flex flex-col justify-center items-center h-full rounded-none sm:rounded-none md:rounded-none lg:rounded-r-xl xl:rounded-r-xl">
       <h1 className="font-bold text-slate-100 text-4xl mb-5">Update Failed</h1>
       <p className="text-slate-200 w-52 text-center mb-10">{errorMessage}</p>
       <Cat className="w-64 h-auto " />

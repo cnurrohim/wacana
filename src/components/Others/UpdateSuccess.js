@@ -11,7 +11,7 @@ const UpdateSuccess = () => {
   const dispatch = useDispatch()
 
   return (
-    <div className="bg-sky-600 p-10 flex flex-col justify-center items-center h-full  rounded-r-xl">
+    <div className="bg-sky-600 p-10 flex flex-col justify-center items-center h-full rounded-none sm:rounded-none md:rounded-none lg:rounded-r-xl xl:rounded-r-xl">
       <h1 className="font-bold text-slate-100 text-4xl mb-14">
         Event Updated!
       </h1>
