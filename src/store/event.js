@@ -60,7 +60,7 @@ const eventSlice = createSlice({
       state.event = action.payload
     },
     setEntryDataState: (state, action) => {
-      state.entryData = [...state.entryData, action.payload]
+      state.entryData = action.payload
     },
     addPostedDataIntoState: (state, action) => {
       state.events = [...state.events, action.payload]
