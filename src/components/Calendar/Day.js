@@ -96,7 +96,7 @@ const Day = ({ day, id, month }) => {
     return ""
   }
 
-  const betweenDateDecoration = () => {
+  const dateContainerDecoration = () => {
     const isTodayEventExist = entryData._id
 
     const colorMood = isTodayEventExist
@@ -107,6 +107,7 @@ const Day = ({ day, id, month }) => {
       ? colorMood.replace("bg", "from")
       : "from-accentPrimary-700"
 
+    // between starting date and ending date
     if (isStartingDay() && !isOneDayEvent() && entryData.endingDate !== null)
       return `bg-gradient-to-l-50 ${halfBgColor} to-secondary`
 
@@ -115,10 +116,7 @@ const Day = ({ day, id, month }) => {
 
     if (isInBetween()) return `${colorMood}`
 
-    return ""
-  }
-
-  const dateContainerDecoration = () => {
+    // regular date
     if (isToday() && !isInBetween()) return "bg-secondary-900"
 
     if (!isInCurrentMonth()) return "bg-secondary"
@@ -160,7 +158,7 @@ const Day = ({ day, id, month }) => {
   return (
     <>
       <div
-        className={`${dateColor()} relative h-[52px] my-[1px] ${getPadding()} ${betweenDateDecoration()} ${dateContainerDecoration()}`}
+        className={`${dateColor()} relative h-[52px] my-[1px] ${getPadding()} ${dateContainerDecoration()} `}
       >
         <span
           key={id}
