@@ -39,19 +39,18 @@ function App() {
   const monthString = moment(currentMonth).format("M")
   const yearString = moment(currentMonth).format("YYYY")
 
-  const [inputInvalid, setinputInvalid] = useState({
-    title: { invalid: false, message: "" },
-    description: { invalid: false, message: "" },
-    startingTime: { invalid: false, message: "" },
-    image: { invalid: false, message: "" },
-    colorMood: { invalid: false, message: "" },
-  })
-
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(fetchEvents(monthString, yearString))
-  }, [currentMonth, dispatch, selectedDate, selectedIdEvent])
+  }, [
+    currentMonth,
+    dispatch,
+    selectedDate,
+    selectedIdEvent,
+    monthString,
+    yearString,
+  ])
 
   const maxHeight = "h-[550px]"
   const padding = "p-5"
@@ -119,17 +118,17 @@ function App() {
             <Error />
           ) : (
             <>
-              {entryData.startingDate == null && events.length == 0 && (
+              {entryData.startingDate === null && events.length === 0 && (
                 <WelcomePanel firstLayer={firstLayer} />
               )}
-              {entryData.startingDate == null && events.length > 0 && (
+              {entryData.startingDate === null && events.length > 0 && (
                 <EventsList
                   month={currentMonth}
                   firstLayer={firstLayer}
                   padding={padding}
                 />
               )}
-              {entryData.startingDate != null && (
+              {entryData.startingDate !== null && (
                 <Form firstLayer={firstLayer} padding={padding} />
               )}
             </>

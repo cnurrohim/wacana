@@ -1,7 +1,6 @@
 import React, { useEffect } from "react"
 import {
   resetSelectedIdState,
-  deleteEvent,
   showDeletePrompt,
   showDetails,
   fetchEvent,
@@ -14,11 +13,6 @@ import { faAngleLeft } from "@fortawesome/free-solid-svg-icons"
 import {
   faClock as Clock,
   faCalendarDays,
-  faCircleCheck,
-  faCircleQuestion,
-  faCircleXmark,
-  faTrashCan,
-  faPenToSquare,
 } from "@fortawesome/free-regular-svg-icons"
 import moment from "moment"
 
@@ -32,8 +26,6 @@ const WelcomePanel = ({ firstLayer, padding }) => {
   useEffect(() => {
     dispatch(fetchEvent(selectedIdEvent))
   }, [dispatch, selectedIdEvent])
-
-  const handleSubmit = () => {}
 
   const clear = () => {
     dispatch(resetSelectedIdState())

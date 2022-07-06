@@ -4,7 +4,6 @@ import {
   fetchEvent,
   postEvent,
   resetEntryDataState,
-  resetSelectedIdState,
   showEditForm,
   resetEventState,
   updateEvent,
@@ -14,7 +13,7 @@ import { useSelector, useDispatch } from "react-redux"
 import TimePicker from "react-time-picker"
 import FileBase from "react-file-base64"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCircleXmark, faTrashCan } from "@fortawesome/free-regular-svg-icons"
+import { faCircleXmark } from "@fortawesome/free-regular-svg-icons"
 import { Schema } from "../../store/event"
 import Validator from "fastest-validator"
 
@@ -45,9 +44,6 @@ const Form = () => {
     }
   }, [dispatch, selectedIdEvent])
 
-  const [isAnytime, setisAnytime] = useState(false)
-  const [refresh, setRefresh] = useState(0)
-
   const colorMoodSet = [
     "bg-red-500",
     "bg-blue-500",
@@ -65,7 +61,7 @@ const Form = () => {
     const validations = check(data)
 
     if (validations.length > 0) {
-      validations.map((validation, i) => {
+      validations.forEach((validation, i) => {
         inputInvalid[validation.field].invalid = true
         inputInvalid[validation.field].message = validation.message
         setinputInvalid({
@@ -96,8 +92,6 @@ const Form = () => {
     } else {
       dispatch(postEvent(postData))
     }
-
-    setRefresh((refresh) => refresh + 1)
 
     clearInput()
     if (isEditForm) {
@@ -153,28 +147,24 @@ const Form = () => {
             Time
           </label>
           <div className="mb-5">
-            {!isAnytime && (
-              <>
-                <TimePicker
-                  name="startingTime"
-                  disableClock
-                  format="HH mm"
-                  onChange={(value) =>
-                    dispatch(setEntryData({ ...event, startingTime: value }))
-                  }
-                  value={event.startingTime}
-                />
-                <TimePicker
-                  name="endingTime"
-                  disableClock
-                  format="HH mm"
-                  onChange={(value) =>
-                    dispatch(setEntryData({ ...event, endingTime: value }))
-                  }
-                  value={event.endingTime}
-                />
-              </>
-            )}
+            <TimePicker
+              name="startingTime"
+              disableClock
+              format="HH mm"
+              onChange={(value) =>
+                dispatch(setEntryData({ ...event, startingTime: value }))
+              }
+              value={event.startingTime}
+            />
+            <TimePicker
+              name="endingTime"
+              disableClock
+              format="HH mm"
+              onChange={(value) =>
+                dispatch(setEntryData({ ...event, endingTime: value }))
+              }
+              value={event.endingTime}
+            />
           </div>
           {inputInvalid.startingTime.invalid === true && (
             <p className="absolute bottom-0 right-0 text-xs text-red-600">
@@ -217,7 +207,7 @@ const Form = () => {
                 <span
                   key={i}
                   className={`w-5 h-5 ${moodColor} ${
-                    event.colorMood == moodColor && "border-2 border-secondary"
+                    event.colorMood === moodColor && "border-2 border-secondary"
                   }  hover:border-2 hover:border-white`}
                   onClick={(e) =>
                     dispatch(setEntryData({ ...event, colorMood: moodColor }))

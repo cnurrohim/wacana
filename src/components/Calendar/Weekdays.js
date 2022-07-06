@@ -6,14 +6,14 @@ const Week = ({ days }) => {
   return (
     <>
       {days.map((day, d) => {
-        const isToday = () => moment().format("d") == d + 1
+        const isToday = () => moment().format("d") === d + 1
         const isTextBold = () => {
           if (isToday()) return "font-bold"
           return ""
         }
         const getTextColor = () => {
-          if (d == ENDOFTHEWEEK) return "text-tertiary font-bold"
-          if (d == ENDOFTHEWEEK - 1) return "text-tertiary font-medium "
+          if (d === ENDOFTHEWEEK) return "text-tertiary font-bold"
+          if (d === ENDOFTHEWEEK - 1) return "text-tertiary font-medium "
           return "text-tertiary font-medium"
         }
         return (

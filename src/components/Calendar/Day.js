@@ -9,7 +9,7 @@ const Day = ({ day, id, month }) => {
   const dispatch = useDispatch()
 
   const isToday = () => moment().isSame(day, "day")
-  const isSunday = () => moment(day).day() == 0
+  //const isSunday = () => moment(day).day() == 0
   const isInCurrentMonth = () => month.containsDay(day)
   const isStartingDay = () => moment(day).isSame(entryData.startingDate)
   const isEndingDay = () => moment(day).isSame(entryData.endingDate)
@@ -25,7 +25,7 @@ const Day = ({ day, id, month }) => {
   const todayEvents = events.filter((event) => {
     return (
       event.startingDate !== null &&
-      moment(day).format("YYYY-MM-DD") ==
+      moment(day).format("YYYY-MM-DD") ===
         moment(event.startingDate.toString()).format("YYYY-MM-DD")
     )
   })

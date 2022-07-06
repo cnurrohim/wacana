@@ -1,7 +1,7 @@
 import React from "react"
 import { ReactComponent as Cat } from "../SVG/Cat astronaut-bro.svg"
 
-const WelcomePanel = ({ month, setCurrentMonth }) => {
+const WelcomePanel = () => {
   return (
     <div className=" p-10 flex flex-col justify-center items-center h-full  rounded-r-xl">
       <h1 className="font-bold text-textSecondary text-4xl mb-5">No Event</h1>

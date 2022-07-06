@@ -1,10 +1,6 @@
 import React from "react"
 import { ReactComponent as Cat } from "../SVG/React-cuate.svg"
-import {
-  resetSelectedIdState,
-  showUpdateFailed,
-  showEditForm,
-} from "../../store/event"
+import { showUpdateFailed, showEditForm } from "../../store/event"
 import { useDispatch, useSelector } from "react-redux"
 
 const UpdateFailed = () => {

@@ -1,10 +1,6 @@
 import React from "react"
 import { ReactComponent as Illustration } from "../SVG/404 Error with a cute animal-amico.svg"
-import {
-  resetSelectedIdState,
-  showDeleteFailed,
-  showDetails,
-} from "../../store/event"
+import { showDeleteFailed, showDetails } from "../../store/event"
 import { useDispatch, useSelector } from "react-redux"
 
 const DeleteFailed = () => {

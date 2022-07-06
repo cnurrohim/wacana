@@ -1,18 +1,18 @@
 import React from "react"
-import { useSelector, useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 import moment from "moment"
 import EventsListByDate from "./EventsListByDate"
 
-const EventsList = ({ month, setCurrentMonth, firstLayer, padding }) => {
+const EventsList = ({ firstLayer, padding }) => {
   const events = useSelector((state) => state.eventReducer.events)
 
   const eventGroup = {
-    todayEvent: new Array(),
-    pastEvent: new Array(),
-    upcomingEvent: new Array(),
+    todayEvent: [],
+    pastEvent: [],
+    upcomingEvent: [],
   }
 
-  events.map((event, i) => {
+  events.forEach((event, i) => {
     const date = Number(moment(event.startingDate).format("D"))
 
     // group berdasarkan event hari ini, besok, kemarin
@@ -22,14 +22,14 @@ const EventsList = ({ month, setCurrentMonth, firstLayer, padding }) => {
 
     if (eventIsPassed && !eventIsToday) {
       if (!Array.isArray(eventGroup.pastEvent[date]))
-        eventGroup.pastEvent[date] = new Array()
+        eventGroup.pastEvent[date] = []
 
       eventGroup.pastEvent[date] = [...eventGroup.pastEvent[date], event]
     }
 
     if (eventIsUpcoming && !eventIsToday) {
       if (!Array.isArray(eventGroup.upcomingEvent[date]))
-        eventGroup.upcomingEvent[date] = new Array()
+        eventGroup.upcomingEvent[date] = []
 
       eventGroup.upcomingEvent[date] = [
         ...eventGroup.upcomingEvent[date],
@@ -39,7 +39,7 @@ const EventsList = ({ month, setCurrentMonth, firstLayer, padding }) => {
 
     if (eventIsToday) {
       if (!Array.isArray(eventGroup.todayEvent[date]))
-        eventGroup.todayEvent[date] = new Array()
+        eventGroup.todayEvent[date] = []
 
       eventGroup.todayEvent[date] = [...eventGroup.todayEvent[date], event]
     }

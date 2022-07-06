@@ -1,5 +1,5 @@
 import * as api from "../api"
-import { createSlice, current } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   events: [],
@@ -69,9 +69,6 @@ const eventSlice = createSlice({
       state.events.map((event) =>
         event._id === action.payload._id ? action.payload : event
       )
-    },
-    setEntryDataState: (state, action) => {
-      state.entryData = action.payload
     },
     resetEntryDataState: (state) => {
       state.entryData = initialState.entryData
@@ -167,7 +164,6 @@ export const Schema = {
 // ACTION
 const {
   setEventRecords,
-  setEventDetail,
   addPostedDataIntoState,
   addUpdatedDataIntoState,
   setEntryDataState,

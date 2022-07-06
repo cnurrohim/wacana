@@ -1,10 +1,6 @@
 import React from "react"
 import { ReactComponent as Illustration } from "../SVG/Oops-pana.svg"
-import {
-  resetSelectedIdState,
-  showSaveFailed,
-  showEditForm,
-} from "../../store/event"
+import { showSaveFailed } from "../../store/event"
 import { useDispatch, useSelector } from "react-redux"
 
 const SaveFailed = () => {
