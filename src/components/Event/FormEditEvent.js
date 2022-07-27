@@ -188,7 +188,7 @@ const FormEditEvent = () => {
 export default FormEditEvent
 
 const ErrorMessage = ({ validationMessages, inputField }) => {
-  if (validationMessages.length == 0) return <></>
+  if (validationMessages.length === 0) return <></>
 
   return (
     <p className="absolute bottom-0 right-0 text-xs text-red-600">
