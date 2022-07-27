@@ -1,38 +1,19 @@
-import React, { useEffect } from "react"
-import {
-  resetSelectedIdState,
-  showDeletePrompt,
-  showDetails,
-  fetchEvent,
-  showEditForm,
-  resetEntryDataState,
-} from "../../store/event"
-import { useSelector, useDispatch } from "react-redux"
+import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons"
+
 import {
   faClock as Clock,
   faCalendarDays,
 } from "@fortawesome/free-regular-svg-icons"
 import moment from "moment"
+import { BlankSpaces } from "../Layout"
+import { initialEvent, useEvent } from "../../contexts/eventProvider"
+import { useNavigate } from "react-router-dom"
 
-const WelcomePanel = ({ firstLayer, padding }) => {
-  const selectedIdEvent = useSelector(
-    (state) => state.eventReducer.selectedIdEvent
-  )
-  const event = useSelector((state) => state.eventReducer.entryData)
-
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(fetchEvent(selectedIdEvent))
-  }, [dispatch, selectedIdEvent])
-
-  const clear = () => {
-    dispatch(resetSelectedIdState())
-    dispatch(showDetails(false))
-    dispatch(resetEntryDataState())
-  }
-
+const Details = ({ event }) => {
+  const { setNewEvent } = useEvent()
+  const navigate = useNavigate()
   const textColor = event.colorMood ? event.colorMood.replace("bg", "text") : ""
   const borderColor = event.colorMood.replace("bg", "border")
 
@@ -41,11 +22,9 @@ const WelcomePanel = ({ firstLayer, padding }) => {
   const hoverBg = "hover:" + event.colorMood.replace("500", "600")
 
   return (
-    <div className={`flex flex-col h-full ${padding}`}>
+    <div className={`flex flex-col h-full p-5`}>
       <div className={`overflow-y-scroll no-scollbar`}>
-        <div className={``}>
-          <div className={`${firstLayer}`}></div>
-        </div>
+        <BlankSpaces />
 
         <div className="flex flex-row w-[100%] justify-between text-2xl mb-10 ">
           <button className="w-10">
@@ -53,7 +32,8 @@ const WelcomePanel = ({ firstLayer, padding }) => {
               className="text-accentPrimary-700 text-2xl hover:text-accentPrimary hover:cursor-pointer"
               icon={faAngleLeft}
               onClick={() => {
-                clear()
+                setNewEvent(initialEvent)
+                navigate("/")
               }}
             />
           </button>
@@ -113,8 +93,8 @@ const WelcomePanel = ({ firstLayer, padding }) => {
           ${hoverBorder} 
           font-semibold`}
             onClick={() => {
-              dispatch(showDeletePrompt(true))
-              dispatch(showDetails(false))
+              setNewEvent(event)
+              navigate(`/event/delete/${event._id}`)
             }}
           >
             Delete Event
@@ -123,8 +103,8 @@ const WelcomePanel = ({ firstLayer, padding }) => {
           <button
             className={`py-1 px-6 ${event.colorMood} ${hoverBg}`}
             onClick={() => {
-              dispatch(showEditForm(true))
-              dispatch(showDetails(false))
+              setNewEvent(event)
+              navigate(`/event/edit/${event._id}`)
             }}
           >
             Edit Event
@@ -135,4 +115,4 @@ const WelcomePanel = ({ firstLayer, padding }) => {
   )
 }
 
-export default WelcomePanel
+export default Details

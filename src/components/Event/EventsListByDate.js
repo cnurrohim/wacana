@@ -1,22 +1,20 @@
 import React from "react"
 import moment from "moment"
-import { selectEvent, showDetails } from "../../store/event"
-import { useDispatch } from "react-redux"
+import { Link } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faClock as Clock,
   faCalendarDays,
 } from "@fortawesome/free-regular-svg-icons"
 
-const UpcomingEventsList = ({ eventGroup, past, upcoming }) => {
-  const dispatch = useDispatch()
-  const title = past
+const UpcomingEventsList = ({ eventGroup, outDated, upcoming }) => {
+  const title = outDated
     ? "Outdated Event"
     : upcoming
     ? "Upcoming Event"
     : "Ongoing Event"
 
-  const titleSize = past ? "text-xl" : upcoming ? "text-xl" : "text-2xl"
+  const titleSize = outDated ? "text-xl" : upcoming ? "text-xl" : "text-2xl"
 
   return (
     <>
@@ -52,15 +50,11 @@ const UpcomingEventsList = ({ eventGroup, past, upcoming }) => {
                           className={`flex flex-col mb-5 pl-3 border-l-4 ${borderColor}`}
                           key={a}
                         >
-                          <h2
-                            className="text-md font-semibold capitalize mb-3 text-secondary hover:text-secondary-700 hover:cursor-pointer  leading-tight"
-                            onClick={() => {
-                              dispatch(selectEvent(event._id))
-                              dispatch(showDetails(true))
-                            }}
-                          >
-                            {event.title}
-                          </h2>
+                          <Link to={`event/${event._id}`}>
+                            <h2 className="text-md font-semibold capitalize mb-3 text-secondary hover:text-secondary-700 hover:cursor-pointer  leading-tight">
+                              {event.title}
+                            </h2>
+                          </Link>
                           {event.endingDate !== event.startingDate && (
                             <span className="text-secondary text-xs font-thin mb-2 flex flex-row leading-none">
                               <FontAwesomeIcon

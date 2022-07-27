@@ -1,12 +1,13 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit"
-import eventReducer from "./event"
-
-const reducers = combineReducers({
-  eventReducer,
-})
+import { configureStore } from "@reduxjs/toolkit"
+import { apiSlice } from "../api/apiSlice"
 
 const store = configureStore({
-  reducer: reducers,
+  reducer: {
+    [apiSlice.reducerPath]: apiSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiSlice.middleware),
+  devTools: true,
 })
 
 export default store

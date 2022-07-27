@@ -1,7 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-
-const defaultColors = require("tailwindcss/colors")
-
 const customColors = require("./src/constants/Colors")
 const plugin = require("tailwindcss/plugin")
 module.exports = {
@@ -28,6 +25,8 @@ module.exports = {
     "from-teal-500",
     "from-cyan-500",
     "from-sky-500",
+
+    "from-accentPrimary-700",
 
     "to-red-500",
     "to-blue-500",

@@ -1,30 +1,32 @@
 import React from "react"
-import { useSelector } from "react-redux"
 import moment from "moment"
 import EventsListByDate from "./EventsListByDate"
 
-const EventsList = ({ firstLayer, padding }) => {
-  const events = useSelector((state) => state.eventReducer.events)
+import { BlankSpaces } from "../Layout"
 
+const EventsList = ({ events }) => {
   const eventGroup = {
     todayEvent: [],
-    pastEvent: [],
+    outDatedEvent: [],
     upcomingEvent: [],
   }
 
-  events.forEach((event, i) => {
+  events.forEach((event) => {
     const date = Number(moment(event.startingDate).format("D"))
 
     // group berdasarkan event hari ini, besok, kemarin
-    const eventIsPassed = moment(event.startingDate).isBefore(moment())
+    const eventIsOutDated = moment(event.startingDate).isBefore(moment())
     const eventIsUpcoming = moment(event.startingDate).isAfter(moment())
     const eventIsToday = moment(event.startingDate).isSame(moment(), "day")
 
-    if (eventIsPassed && !eventIsToday) {
-      if (!Array.isArray(eventGroup.pastEvent[date]))
-        eventGroup.pastEvent[date] = []
+    if (eventIsOutDated && !eventIsToday) {
+      if (!Array.isArray(eventGroup.outDatedEvent[date]))
+        eventGroup.outDatedEvent[date] = []
 
-      eventGroup.pastEvent[date] = [...eventGroup.pastEvent[date], event]
+      eventGroup.outDatedEvent[date] = [
+        ...eventGroup.outDatedEvent[date],
+        event,
+      ]
     }
 
     if (eventIsUpcoming && !eventIsToday) {
@@ -46,23 +48,16 @@ const EventsList = ({ firstLayer, padding }) => {
   })
 
   return (
-    <div className={`flex flex-col h-full ${padding}`}>
-      <div className={``}>
-        <div className={`${firstLayer}`}></div>
-      </div>
+    <div className={`flex flex-col h-full p-5`}>
+      <BlankSpaces />
       <div className={`overflow-y-scroll no-scollbar`}>
-        <div className="h-full">
-          <div className="w-full">
-            <EventsListByDate
-              eventGroup={eventGroup.todayEvent}
-              current={true}
-            />
-            <EventsListByDate
-              eventGroup={eventGroup.upcomingEvent}
-              upcoming={true}
-            />
-            <EventsListByDate eventGroup={eventGroup.pastEvent} past={true} />
-          </div>
+        <div className="h-full w-full">
+          <EventsListByDate eventGroup={eventGroup.todayEvent} current={true} />
+          <EventsListByDate
+            eventGroup={eventGroup.upcomingEvent}
+            upcoming={true}
+          />
+          <EventsListByDate eventGroup={eventGroup.outDatedEvent} past={true} />
         </div>
       </div>
     </div>

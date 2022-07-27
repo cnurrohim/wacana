@@ -1,23 +1,27 @@
 import React from "react"
-
 import Month from "./Month"
 import Weekdays from "./Weekdays"
 import Week from "./Week"
 import { days } from "calendar-months"
 import { DAYSINWEEK } from "../../constants/Calendar"
+import moment from "moment"
+import { useGetEventsQuery } from "../../api/eventsApiSlice"
+import { BlankSpaces } from "../Layout"
 
-const Calendar = ({
-  month,
-  setCurrentMonth,
-  maxHeight,
-  padding,
-  border,
-  firstLayer,
-  secondLayer,
-}) => {
+const Calendar = ({ month, setCurrentMonth, newEvent, isCreatingNewEvent }) => {
+  const monthString = moment(month).format("M")
+  const yearString = moment(month).format("YYYY")
+
+  const { data, isSuccess } = useGetEventsQuery({
+    month: monthString,
+    year: yearString,
+  })
+
+  const events = isSuccess ? data : []
+
   return (
     <div
-      className={`w-full sm:w-full md:w-full lg:w-[40%] xl:w-[30%] ${padding} pl-10 ${border} grid grid-cols-7 
+      className={`w-full sm:w-full md:w-full lg:w-[40%] xl:w-[30%] p-5 pl-10 grid grid-cols-7 
       h-full sm:h-full md:h-full lg:h-[550px] xl:h-[550px]
       bg-secondary relative
       shadow-md
@@ -35,20 +39,24 @@ const Calendar = ({
       </div>
 
       <div className={`col-span-7`}>
-        <div className={`${firstLayer}`}> </div>
+        <BlankSpaces />
       </div>
 
-      <Month
-        month={month}
-        setCurrentMonth={setCurrentMonth}
-        className={`${secondLayer}`}
-        secondLayer={secondLayer}
-      />
+      <Month month={month} setCurrentMonth={setCurrentMonth} />
 
       <Weekdays days={DAYSINWEEK} />
 
       {month.calendarWeeks(days.MONDAY).map((week, i) => (
-        <Week days={week} month={month} id={i} key={i} />
+        <Week
+          days={week}
+          month={month}
+          id={i}
+          key={i}
+          events={events}
+          newEvent={newEvent}
+          isCreatingNewEvent={isCreatingNewEvent}
+          setCurrentMonth={setCurrentMonth}
+        />
       ))}
     </div>
   )

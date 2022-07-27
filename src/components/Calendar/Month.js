@@ -2,13 +2,11 @@ import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleRight, faAngleLeft } from "@fortawesome/free-solid-svg-icons"
 
-const Month = ({ month, setCurrentMonth, secondLayer }) => {
+const Month = ({ month, setCurrentMonth }) => {
   return (
     <>
       <div className="col-span-4 text-2xl text-tertiary font-semibold">
-        <span className={`capitalize ${secondLayer} block`}>
-          {month.format("MMMM")}
-        </span>
+        <span className={`capitalize h-16 block`}>{month.format("MMMM")}</span>
       </div>
       <div className="justify-between text-2xl text-tertiary-300 font-thin ">
         <span className="uppercase">{month.format("YYYY")}</span>
