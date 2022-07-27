@@ -11,12 +11,7 @@ function DeleteEvent() {
   const { eventId } = useParams()
 
   const [currentMonth, setCurrentMonth] = useState(Month.now)
-  const {
-    data: event,
-    isLoading,
-    isError,
-    isSuccess,
-  } = useGetEventQuery({
+  const { data: event, isSuccess } = useGetEventQuery({
     eventId,
   })
 

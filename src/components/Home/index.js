@@ -1,6 +1,5 @@
-import React, { useState } from "react"
+import React from "react"
 import Calendar from "../Calendar/Calendar"
-import Month from "calendar-months"
 import moment from "moment"
 import WelcomePanel from "../Others/WelcomePanel"
 import { RightLayout } from "../Layout"

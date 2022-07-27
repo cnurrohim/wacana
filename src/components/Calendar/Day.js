@@ -36,7 +36,7 @@ const Day = ({
         return item !== null
       }
     )
-    if (chosenDate.length == 2) chosenDate = []
+    if (chosenDate.length === 2) chosenDate = []
 
     chosenDate.push(ISOdate)
     chosenDate.sort()

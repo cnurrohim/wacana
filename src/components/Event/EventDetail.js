@@ -1,6 +1,5 @@
-import React, { useState } from "react"
+import React from "react"
 import Details from "./Details"
-import Month from "calendar-months"
 import { useParams } from "react-router-dom"
 
 import Calendar from "../Calendar/Calendar"
@@ -15,13 +14,7 @@ function EventDetail() {
   const { eventId } = useParams()
   const { newEvent } = useEvent()
 
-  const {
-    data: event,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
-  } = useGetEventQuery({ eventId })
+  const { data: event, isLoading, isSuccess } = useGetEventQuery({ eventId })
 
   let content = <></>
 

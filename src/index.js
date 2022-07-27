@@ -7,17 +7,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 import { Provider } from "react-redux"
 import store from "./store"
-import { eventsApiSlice } from "./api/eventsApiSlice"
-
-import Month from "calendar-months"
-import moment from "moment"
-
-// store.dispatch(
-//   eventsApiSlice.endpoints.getEvents.initiate({
-//     month: moment(Month.now()).format("M"),
-//     year: moment(Month.now()).format("YYYY"),
-//   })
-// )
 
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(

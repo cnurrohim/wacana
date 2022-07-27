@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 
 import Calendar from "../Calendar/Calendar"
 import { RightLayout } from "../Layout"

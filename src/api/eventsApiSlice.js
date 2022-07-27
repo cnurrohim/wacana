@@ -1,5 +1,4 @@
 import { apiSlice } from "./apiSlice"
-import { createSelector } from "@reduxjs/toolkit"
 
 const eventsApiTags = apiSlice.enhanceEndpoints({ addTagTypes: ["events"] })
 export const eventsApiSlice = eventsApiTags.injectEndpoints({
